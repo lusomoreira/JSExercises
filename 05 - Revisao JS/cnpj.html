@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation CNPJ-BR</title>
+
+    <style type="text/css"> 
+        body {
+            font-size: 16px; 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        .field {
+            width: 600px; 
+            padding-left: 300px; 
+            padding-top: 150px;
+        } 
+    </style>
+</head>
+<body>
+
+    <script>
+        /**
+         * 11.222.333/0001-XX
+         * 
+         * primeiro alinhar todos os numeros para realizar a multiplicacao com os respectivos num: 5,4,3,2,9,8,7,6,5,4,3,2
+         *                  1   1   2   2   2   3   3   3   0   0   0   1
+         *                  5   4   3   2   9   8   7   6   5   4   3   2
+         *
+         * result =         5   4   6   4   18  24  21  18  0   0   0   1  
+         * somatorio = 5+4+6+4+18+24+21+18+0+0+0+1
+         * somatorio = 102
+         * 
+         * agora tirar o resto da divisao por 11 
+         * somatorio % 11
+         *  se resto menor do que 2, entao o primeiro digito é 0
+         *  senao, o digito1 é = (11-resto)
+         * 
+         * 
+         * calculo do segundo digito
+         * 6,5,4,3,2,9,8,7,6,5,4,3,2
+         * 
+         *                  1    1    2    2    2    3    3    3    0    0    0    1       digito1
+         *                  6    5    4    3    2    9    8    7    6    5    4    3       2
+         *
+         *result            6    5    8    6    4    27   24   21   0    0    0    3       16 
+         *
+         * 
+         * somatorio % 11
+         * se resto menor que 2 entao o segundo digito é 0
+         * caso contrario, o digito 2 é 11 - (Somatorio%11)
+         *                  
+         *  
+        */
+        function cnpjValidation(c){
+
+            let arrCnpj = c.split('');
+
+            let digito1 = 0;
+            let digito2 = 0;
+
+            let sum1 = 0;
+            let sum2 = 0;
+
+            let aux = 0;
+
+            // validacao do primeiro digito
+            aux = 5;
+            for (let i= 0; i<4; i++) {
+                sum1 = sum1 + (aux*parseInt(arrCnpj[i]));
+                //console.log(sum1);
+                aux--;
+            }
+
+            aux = 9;
+            for (let i=4; i<12; i++) {
+                sum1 = sum1 + (aux*parseInt(arrCnpj[i]));
+                //console.log(sum1, aux);
+                aux--;                
+            }
+
+            if(sum1%11 < 2) {
+                digito1 = 0;
+            } else if (sum1%11 >= 2) {
+                digito1 = 11 - (sum1%11);
+            }
+
+            if (digito1 != parseInt(arrCnpj[12])) {
+                //console.log('Cnpj Invalido', digito1, parseInt(arrCnpj[12]));
+                result.innerHTML = `<span>Invalido!</span>`.fontsize('18px');
+            } else {
+                // calcula o segundo digito
+
+                // 77218769000105
+                aux = 6;
+                for(let i = 0; i<5; i++){
+                    // console.log(arrCnpj[i], aux);
+                    sum2 = sum2 + (aux*parseInt(arrCnpj[i]));
+                    aux--;
+                }
+
+                aux = 9;
+                for(let i = 5; i<13; i++){
+                    //console.log(aux, parseInt(arrCnpj[i]));
+                    sum2 = sum2 + (aux*parseInt(arrCnpj[i]));
+                    aux--;
+                }
+
+                if(sum2%11 < 2) {
+                    digito2 = 0;
+                } else {
+                    digito2 = 11 - (sum2%11);
+                }
+
+                if(digito2 != parseInt(arrCnpj[13])) {
+                    result.innerHTML = `<span>Invalido!</span>`.fontsize('18px');
+                } else {
+                    result.innerHTML = `<span>Valido!</span>`.fontsize('18px');
+                }
+
+
+            }
+
+
+
+        }
+    </script>
+
+    <div class="field">
+        <fieldset>
+            <legend>Validation of CNPJ-BR</legend>
+
+            <input type="text" name="cnpj" id="cnpj" placeholder="ex: 112223330001XX.">
+            <button type="submit" onclick="cnpjValidation(cnpj.value)">Validate</button>
+            <br>
+            <div id="result">
+                <!-- aqui aparece o resultado via javascript e dom -->
+            </div>
+        </fieldset>
+    </div>
+
+
+</body>
+</html>

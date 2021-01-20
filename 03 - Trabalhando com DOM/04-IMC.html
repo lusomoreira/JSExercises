@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>IMC</h1>
+    <input type="text" id="height" name="height" placeholder="Height">
+    <input type="text" id="weight" name="Weight" placeholder="Weight">
+    <button type="button" id="bnt" onclick='calcImc()'>Calc</button>
+
+    <div id="result">
+        <!-- aqui sera mostrado o resultado, criado pelo javascript -->
+    </div>
+
+    <script>
+
+        const height = document.getElementById('height');
+        const weight = document.getElementById('weight'); 
+        const result = document.getElementById('result');
+        
+        //usando javaScript para estilizar com CSS
+        height.style.display = 'block';
+        height.style.width = '100%';
+
+        weight.style.display='block';
+        weight.style.width='100%';
+
+        //button
+        document.getElementById('bnt').style.alignItems = 'center';
+
+        function calcImc() {
+            //IMC = Weight / (Height*Height)
+
+            //alert(IMC);
+
+            const IMC = weight.value / (height.value * height.value);
+
+            if (IMC<19.5) {
+                result.innerHTML = `<h1>Abaixo do Peso</h1>`;
+                //alert('Abaixo do peso');
+            } else if(IMC>=19.5 && IMC<26.4) {
+                result.innerHTML = `<h1>Peso Ideal</h1>`;
+                // alert('Peso Ideal');
+            } else if(IMC>=26.4 && IMC<31){
+                result.innerHTML = `<h1>Acima do Peso</h1>`;
+                //alert('Acima do Peso');
+            
+            } else if(IMC>=31) {
+                result.innerHTML = `<h1>Obeso</h1>`;
+                //alert('Obeso');
+            }
+
+
+        }
+    </script>
+</body>
+</html>

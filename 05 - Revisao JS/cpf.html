@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style type="text/css">
+        body {
+            font-size: 16px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .fild {
+            width: 300px;
+        }
+    </style>
+
+    <script>
+
+
+        // serve para imprimir o resultado na tela
+        function retornaValidacao (c) {
+            const cpf = validarCpf(c);       
+            const result = document.getElementById('result');
+
+            if (cpf) {
+                result.innerHTML = `<span>Valido!</span>`.fontsize('18px');
+
+            } else {
+                result.innerHTML = `<span>Invalido!</span>`.fontsize('18px'); 
+            } 
+            // console.log(cpf);
+        }
+
+
+        function validarCpf(c) {
+
+            //console.log(c.value);
+            // get text of html page
+            //const cpfString = c;
+            let arrCpf = c.split('');
+
+            let digt1 = 0;
+            let digt2 = 0;
+            let sum1 = 0;
+            let sum2 = 0;
+            let j = 10;
+            let w = 11;
+            let newCpf = '';
+
+            //validacao do primeiro digito
+            for (let i=0; i<9; i++) {
+                sum1 = sum1 + (arrCpf[i]*j);
+                j--;
+               // console.log(sum1);
+            }
+
+            // condicao para validar o primeiro digito
+            if((sum1 % 11)< 2) {
+                digt1= 0;
+            } else if ((sum1%11)>=2) {
+                digt1 = 11 - (sum1%11);
+            }
+
+            // console.log(digt1);
+
+            // validacao do segundo digito
+
+            for(let i = 0; i<10; i++) {
+                sum2 = sum2 + (arrCpf[i]*w);
+                w--;
+            }
+
+            // codicao para validar digito 2
+            if((sum2 % 11) < 2) {
+                digt2 = 0;
+            } else if((sum2 % 11) >= 2) {
+                digt2 = 11 - (sum2 % 11);
+            }
+
+            if (digt1 == parseInt(arrCpf[9]) && digt2 == parseInt(arrCpf[10])) {
+                return true;
+            } else {
+                return false;
+            }             
+        }
+        
+
+        /**
+         * nessa funcao deve-se gerar randomicamente o array com os 11 digitos do cpf
+         * e ir testando com a funcao validar cpf
+        */
+        function gerarCpf() {
+            /* ... gerar randomicamente um array com a quantidade de digitos*/
+
+            let cpfRandom = "03073665102";
+            arrCpf = [];
+            /**
+             * do...while
+             * enquanto a fncao validarCpf() nao retornar true
+             * entao continuar gerando um cpf
+             * 
+             * quando retornar true, pegar o valor gerado e atribuir no innerHTML
+            */
+           do {
+            
+            for (let i=0; i<11; i++) {
+                arrCpf[i] = Math.floor(Math.random() * 10);
+            }
+
+            cpfRandom = arrCpf.join(''); //serve para concatenar os elementos do array
+            
+            console.log(cpfRandom, arrCpf);
+           }while(!validarCpf(cpfRandom));
+           
+        //    const primeiro = Math.floor(Math.random() * 10);
+        //    console.log(primeiro)
+           // console.log('falta implementar');
+           
+           const newCpf = document.getElementById('newCpf');
+           newCpf.innerHTML = cpfRandom;
+
+
+        }
+    </script>
+</head>
+<body>
+
+    <div class="fild">
+
+        <fieldset> <legend>Validacao Cpf</legend>        
+            <!-- <input type="text" name="cpf" id="cpf" placeholder="ex: 000.000.000-00"> -->
+            <input type="text" name="cpf" id="cpf" placeholder="ex: 00000000000">
+            <button type="submit" onclick="retornaValidacao(cpf.value)">Validar</button>
+            <br>
+            <div id="result">
+
+            </div>
+        </fieldset>    
+        
+        <fieldset> <legend>Gerar Cpf</legend>        
+            <h4 id="newCpf">XXX-XXX-XXX-XX</h4>
+            <button type="submit" onclick="gerarCpf()">Gerar</button>
+        </fieldset>
+
+    </div>
+</body>
+</html>

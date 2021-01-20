@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function NameFunction(){
+            console.log('01 - primeiro exemplo funcao comum')
+        }
+        // chamada da funcao comum
+        NameFunction()
+
+        const funVar = function FunctionVariable(number = null){
+            console.log( `${number}  - exemplo funcao de variavel`)
+        }
+        // chamada da variavel funcao com passagem de paramtros default
+        funVar('02')
+
+        // Recursividade - Chamada de uma funcao dentro dela mesma
+        // exemplo com fatorial 3! - 3 x 2 x 1 (fatorial de 3)
+
+        function fatorial (num) {
+            if (num == 1){
+                return 1
+            } else {
+                // nesse ponto ele faz a chamada novamente da funcao
+                // e diminui o resultado por 1
+                return num * fatorial(num-1)
+            }
+        }
+        // chamada da funcao 
+        let result = fatorial(3)
+        console.log(`03 Fatorial... O Resultado é: ${result}`)
+
+
+        //Exemplo de array
+
+        let arr = [1, 2, 3, 4, 5]
+        for (let i = 0; i<arr.length; i++) {
+            console.log(`Array posicao ${i} é: ${arr[i]}`)
+        }
+
+        //Exemplo Objeto
+        let car = 
+        {
+            name: 'Palio',
+            brand: 'Fiat',
+            color: 'Silver'
+        }
+
+        console.log(car)
+
+        //array de objetos
+        let arrCar = [
+            {
+                name: 'Palio',
+                brand: 'Fiat',
+                color: 'Silver'                
+            },
+            {
+                name: 'Gol',
+                brand: 'Volks',
+                color: 'black' 
+            }           
+        ]
+
+        console.log(arrCar)
+
+
+        //funcao assincrona
+        // exemplo com callback
+        // obs, callback é uma funcao que sera executada depois que todo processamento for executado
+        // da
+        setTimeout(()=> {
+            console.log('dispara mensagem depois de 2 segundos')
+        }, 2000)
+
+    </script>
+</body>
+</html>

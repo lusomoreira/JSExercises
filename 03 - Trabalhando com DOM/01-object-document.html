@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <p id='meuParagrafo'>Paragrafo de Teste</p>
+    <p class="minhaClass"> Segundo paragrafo</p>
+    <script>
+        // Arvore DOM
+        // WINDOW é tODA A JANELA
+        // document, é o conteudo do documento HTML
+
+        // exemplo
+        console.log(document);
+
+        //é possivel pegar qualquer elemento dentro do document
+
+        //exemplo 
+        const paragrafo = document.getElementsByTagName('p');
+        //console.log(paragrafo); Mostra todas as propriedades dos pargrafo, pois é um array de objetos do tipo p
+        //console.log(paragrafo[0].textContent) mostra apenas a propriedade textContent do objeto de indice 0 
+        
+        
+        // Utilizando ID
+        const capturaPeloId = document.getElementById('meuParagrafo').textContent;
+        console.log(capturaPeloId);
+
+
+        // utilizando class
+        // neste caso a class é um array, logo deverá colocar o indice...
+        const capturaPelaClass = document.getElementsByClassName('minhaClass')[0].textContent;
+        console.log(capturaPelaClass);
+        
+    </script>
+</body>
+</html>
