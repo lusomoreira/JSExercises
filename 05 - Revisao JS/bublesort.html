@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BublleSort</title>
+
+    <style type="text/css">
+        .conteudo{
+            border: 1px solid red;
+            /* display: block; */
+            /* width: 400px; */
+            padding: 200px;
+        }
+
+        .resultado {
+            font-size: 36px;
+            font-family: 'Courier New', Courier, monospace;
+            color: #5a5a5a;
+            border-bottom: 2px solid gray;
+        }
+    </style>
+
+
+    <script>
+        function ordenaArray(c) {
+            let arr = [];
+            let swap;
+            let temp;
+            let len;
+
+            arr = c.split('');
+            
+            len = arr.length-1;
+            
+
+            do {
+                
+                for(let i = 0; i<len; i++) {
+                    swap = false;
+                    if(arr[i] > arr[i+1]){
+                        aux = arr[i];
+                        arr[i] = arr[i+1];
+                        arr[i+1] = aux;
+                        swap = true;
+                    }
+                }
+            }while(swap);
+
+            let novaOrdenacao = document.getElementById('resultado');
+            novaOrdenacao.innerHTML = arr;
+            
+        }
+    </script>
+</head>
+<body>
+
+    <div class="conteudo">
+
+        <div class="conteudo">
+
+            <label for="">Array a ser Ordenado</label>
+            <input type="text" name="buble" id="buble" placeholder="ex: 15654789664553225">
+            <input onclick="ordenaArray(buble.value)"type="submit" value="Ordenar">
+        </div>
+        
+
+        <div class="resultado">
+            <span id="resultado"></span>
+        </div>
+    </div>
+
+</body>
+</html>
